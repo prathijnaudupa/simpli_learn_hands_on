@@ -1,0 +1,169 @@
+         WELCOME       
+
+***************************************************************************
+
+Company : Lockers Pvt. Ltd. 
+
+***************************************************************************
+
+Welcome to the website  LockedMe.com  
+
+***************************************************************************
+
+DETAILS ABOUT THE DEVELOPER 
+
+**********************************
+
+My name is Prathijna Udupa. Working as a software developer.
+I am happy to present the website that i have created 
+
+Please feel free to contact at my id 
+abc@gmail.com for any queries 
+
+***************************************************************************
+
+Please LOGIN with your correct credentials 
+
+Login helps us to identify that you works for us 
+
+****************************************************
+
+enter your USERNAME
+Ramesh
+enter your company E-MAIL: 
+e2@gmail.com
+
+Successfully loged into the system
+***************************************************************************
+
+Our Company Employees are provided with 
+following operations, use it according to your need
+
+****************************************************
+
+1. Retrieve or view the files
+2. Add a file a File
+3. Delete a File
+4. Search a file
+5. Close the application
+
+Enter your choice:	
+1
+Available files are: 
+
+[project1.txt, project2.txt, attendance.txt, salary.txt]
+
+****************************************************
+
+Our Company Employees are provided with 
+following operations, use it according to your need
+
+****************************************************
+
+1. Retrieve or view the files
+2. Add a file a File
+3. Delete a File
+4. Search a file
+5. Close the application
+
+Enter your choice:	
+2
+Enter the file to be added: 
+
+sales.txt
+Your file is updated
+
+[project1.txt, project2.txt, attendance.txt, salary.txt, sales.txt]
+
+***************************************
+
+Our Company Employees are provided with 
+following operations, use it according to your need
+
+****************************************************
+
+1. Retrieve or view the files
+2. Add a file a File
+3. Delete a File
+4. Search a file
+5. Close the application
+
+Enter your choice:	
+1
+Available files are: 
+
+[project1.txt, project2.txt, attendance.txt, salary.txt]
+
+****************************************************
+
+Our Company Employees are provided with 
+following operations, use it according to your need
+
+****************************************************
+
+1. Retrieve or view the files
+2. Add a file a File
+3. Delete a File
+4. Search a file
+5. Close the application
+
+Enter your choice:	
+3
+To delete the files...
+
+Enter the file name
+
+*************************************
+
+attendance.txt
+attendance.txt = file is deleted !
+
+*************************************
+
+Your file is updated
+
+[project1.txt, project2.txt, salary.txt]
+
+***************************************
+
+Our Company Employees are provided with 
+following operations, use it according to your need
+
+****************************************************
+
+1. Retrieve or view the files
+2. Add a file a File
+3. Delete a File
+4. Search a file
+5. Close the application
+
+Enter your choice:	
+4
+To search the files...
+
+Enter the file name
+
+*************************************
+
+salary.txt
+salary.txt = file is present !
+
+*************************************
+
+Our Company Employees are provided with 
+following operations, use it according to your need
+
+****************************************************
+
+1. Retrieve or view the files
+2. Add a file a File
+3. Delete a File
+4. Search a file
+5. Close the application
+
+Enter your choice:	
+5
+Closing your application... 
+Thank you!
+*************************************
+

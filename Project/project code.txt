@@ -1,0 +1,159 @@
+// This is just a Prototyped Application
+package hello;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Project {
+	  public static void main(String[] args) {
+		  
+		  System.out.println("         WELCOME       \n");
+	        
+		  System.out.println("***************************************************************************\n");
+	        System.out.println("Company : Lockers Pvt. Ltd. \n");
+	        
+	        System.out.println("***************************************************************************\n");
+	        
+	           System.out.println("Welcome to the website  LockedMe.com  \n");
+	           System.out.println("***************************************************************************\n");
+		        		        
+		        System.out.println("DETAILS ABOUT THE DEVELOPER \n");
+		        System.out.println("**********************************\n");
+		        System.out.println("My name is Prathijna Udupa. Working as a software developer.\nI am happy to present the website that i have created \n");
+		        System.out.println("Please feel free to contact at my id \nabc@gmail.com for any queries \n");
+		        System.out.println("***************************************************************************\n");
+	        ArrayList<String> emailID = new ArrayList<String>();
+	        
+	        emailID.add("e1@gmail.com");
+	        emailID.add("e2@gmail.com");
+	        emailID.add("e3@gmail.com");
+	        emailID.add("e4@gmail.com");
+	        emailID.add("e5@gmail.com");
+	        String EmailFind;
+	        
+	        System.out.println("Please LOGIN with your correct credentials \n");
+	        System.out.println("Login helps us to identify that you works for us \n");
+	        System.out.println("****************************************************\n");
+	        
+	        System.out.println("enter your USERNAME");
+	        Scanner scanner1 = new Scanner(System.in);
+	        String username= scanner1.nextLine();
+	        System.out.println("enter your company E-MAIL: ");
+	        Scanner scanner = new Scanner(System.in);
+	        EmailFind = scanner.nextLine();
+	        String regex = "^(.+)@(.+)$";
+	        Matcher matcher = Pattern.compile(regex).matcher(EmailFind);
+	        if (matcher.matches() && emailID.stream().anyMatch(mail -> mail.equals(EmailFind))) {
+	            System.out.println("\nSuccessfully loged into the system");
+	            System.out.println("***************************************************************************\n");
+	            optionsSelection();
+	        } else {
+	            System.out.println("\nNot a valid email id");
+	            System.out.println(username + " , you are not a part of the company, \n So you don't have the access or try with the proper id \n");
+	            System.out.println("***************************************************************************\n");
+	            
+	        }
+	       
+	  }	  	  
+private static void optionsSelection() {
+    String[] arr = {"1. Retrieve or view the files",
+            "2. Add a file a File",
+            "3. Delete a File",
+            "4. Search a file",
+            "5. Close the application"
+    };
+    int[] arr1 = {1,2,3,4,5};
+    int  slen = arr1.length;
+    System.out.println("Our Company Employees are provided with \nfollowing operations, use it according to your need\n");
+    System.out.println("****************************************************\n");
+    for(int i=0; i<slen;i++){ 	
+        System.out.println(arr[i]);
+    }
+    ArrayList<String> arrlist = new ArrayList<String>();
+    ArrayList<String> files = new ArrayList<String>();
+    files.add("project1.txt");
+    files.add("project2.txt");
+    files.add("attendance.txt");
+    files.add("salary.txt");
+    files.addAll(arrlist);
+    System.out.println("\nEnter your choice:\t");
+    Scanner sc = new Scanner(System.in);
+    int  options =  sc.nextInt();
+    for(int j=1;j<=slen;j++){
+        if(options==j){
+            switch (options){
+                case 1:
+                    System.out.println("Available files are: \n");
+                    System.out.println(files+"\n");
+                    System.out.println("****************************************************\n");
+                    optionsSelection();
+                    break;
+                case 2:
+                    System.out.println("Enter the file to be added: \n");
+                    String value = sc.next();
+                    files.add(value);
+                    System.out.println("Your file is updated\n");
+                    files.addAll(arrlist);
+                    System.out.println(files+"\n");
+                    System.out.println("***************************************\n");
+                    optionsSelection();
+                    break;
+               case 3:           	  
+                    System.out.println("To delete the files...\n");
+                    System.out.println("Enter the file name\n");
+                    System.out.println("*************************************\n");                   
+                    String value1 = sc.next();
+                    if(files.contains(value1)) {
+                    	files.remove(value1);
+                        System.out.println(value1+ " = file is deleted !\n");
+                        System.out.println("*************************************\n");
+                        System.out.println("Your file is updated\n");
+                        files.addAll(arrlist);
+                        System.out.println(files+"\n");
+                        System.out.println("***************************************\n");
+                        
+                    } else {
+                    	
+                        System.out.println("Oops... try again!");
+                        System.out.println("*************************************\n");
+                    }
+                    optionsSelection();
+                    break;
+                case 4:
+                	System.out.println("To search the files...\n");
+                    System.out.println("Enter the file name\n");
+                    System.out.println("*************************************\n");
+                    
+                    String value2 = sc.next();
+                    if(files.contains(value2)) {                    	
+                        System.out.println(value2 + " = file is present !\n");
+                        System.out.println("*************************************\n");
+                    } else {
+                    	
+                        System.out.println("Oops... file not found!");
+                        System.out.println("*************************************\n");
+                    }
+                    optionsSelection();
+                    break;
+
+                case 5:
+                	closeApp();
+                    break;
+                default:
+                	System.out.println("*************************************\n");
+                    System.out.println("You have made an invalid choice!");
+                    System.out.println("*************************************\n");
+                    break;
+            }
+        }
+    }
+}
+private static void closeApp() {
+    System.out.println("Closing your application... \nThank you!");
+    System.out.println("*************************************\n");
+        }
+}
+
+
