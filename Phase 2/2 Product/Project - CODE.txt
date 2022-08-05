@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Find Product Details by giving product id</title>
+</head>
+<body>
+<h2>Find Product Details by giving product id</h2>
+<form action="PDetails" method="get">
+<label>Please give product id: </label>
+<input type ="text" name="prod_id"><br/>
+<input type="submit" value="submit"/>
+</form>
+<br/>
+</body>
+</html>
+
+
+
+
+
+package com;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Prod
+ */
+public class PDetails extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PDetails() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter pw = response.getWriter();
+		int prod_id = Integer.parseInt(request.getParameter("prod_id"));
+		  
+		
+		  try {
+			  Class.forName("com.mysql.jdbc.Driver");
+			  Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommerce","root","root");
+			  PreparedStatement pstmt = con.prepareStatement("select * from ecom where prod_id=?");
+			  pstmt.setInt(1, prod_id);
+			 ResultSet rs = pstmt.executeQuery();
+				while(rs.next()) {
+				  pw.println("Product's name is  : "+rs.getString(2));
+				 pw.println("Product's price is : "+rs.getInt(3));
+				}
+				
+		  }
+			  catch(Exception e) {
+				  System.out.println(e);
+			  }
+		  
+	}
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//doGet(request, response);
+		
+
+}
+	}
