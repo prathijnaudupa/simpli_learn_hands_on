@@ -1,0 +1,257 @@
+store.html
+------------
+
+<html>
+<body>
+<h2>Add Product</h2>
+<form action="ProductStore" method="post">
+<label>Id</label>
+<input type ="number" name ="id"><br/>
+<label>PName</label>
+<input type ="text" name ="pname"><br/>
+<label>Price</label>
+<input type ="number" name ="price"><br/>
+<input type="submit" value="Store Product">
+<input type ="reset" value ="Reset">
+</form>
+</body>
+</html>
+
+------------------------------------------------------------------------------------------------
+
+hibernate.cfg.xml
+------------------
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.password">hello123</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ecommerce</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <mapping class="com.bean.Products"/>
+    </session-factory>
+</hibernate-configuration>
+
+------------------------------------------------------------------------------------------------------------
+
+
+ProductService.java
+---------------------
+
+package com.service;
+
+import com.bean.Products;
+import com.dao.Productsdao;
+
+public class ProductService {
+
+	Productsdao pd = new Productsdao();
+	public String storeProduct(Products product) {
+		if(product.getPrice()<100) {
+			return "Product price must be > 100";
+		}else if(pd.storeProduct(product)>0){
+			return "Product stored successfully!!";
+		}else {
+			return "Product didn't store id must be unique";
+		}
+}
+}
+
+---------------------------------------------------------------------------------------------------------
+
+ProductStore.java
+--------------------
+
+package com.conn;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bean.Products;
+import com.service.ProductService;
+
+/**
+ * Servlet implementation class ProductStore
+ */
+public class ProductStore extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ProductStore() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		doGet(request, response);
+PrintWriter pw = response.getWriter();
+		
+		response.setContentType("text/html");
+		int id = Integer.parseInt(request.getParameter("id"));
+		String pname = request.getParameter("pname");
+		int price = Integer.parseInt(request.getParameter("price"));
+		
+		Products p = new Products();
+		p.setId(id);
+		p.setPname(pname);
+		p.setPrice(price);
+		
+		ProductService ps = new ProductService();
+		String result = ps.storeProduct(p);
+		pw.print(result);
+		RequestDispatcher rd = request.getRequestDispatcher("store.html");
+		rd.include(request, response);
+	}
+
+}
+---------------------------------------------------------------------------------------------------------
+
+Products.java
+--------------
+
+package com.bean;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="productDetails")
+public class Products {
+
+	@Id
+	private int id;
+	private String pname;
+	private int price;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Products [id=" + id + ", pname=" + pname + ", price=" + price + "]";
+	}
+}
+
+---------------------------------------------------------------------------------------------------------
+
+Productsdao.java
+-----------------
+
+package com.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.bean.Products;
+public class Productsdao {
+	
+	public int storeProduct(Products product) {
+		 try {
+			 Configuration con = new Configuration();
+			 con.configure("hibernate.cfg.xml");
+			 SessionFactory sf =  con.buildSessionFactory();
+			 Session session = sf.openSession();
+			  Transaction tran = session.getTransaction();
+			 tran.begin();
+			 session.save(product);
+			 tran.commit();
+			 return 1;
+		 } catch(Exception e){
+			 System.out.println(e);
+			 return 0;
+			 
+			 
+		 }
+
+}
+}
+
+----------------------------------------------------------------------------------------------------------
+
+HibernateProject/pom.xml
+-------------------------
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>HibernateProject</groupId>
+  <artifactId>HibernateProject</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.16</version>
+</dependency>
+
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.5.6.Final</version>
+</dependency>
+
+
+</dependencies>
+
+</project>
+
+
+
