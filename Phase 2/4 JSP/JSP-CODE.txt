@@ -1,0 +1,79 @@
+index.html
+---------------
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User login form</title>
+    </head>
+    <body>
+        <form action="login.jsp">
+        <h1>Products available are:</h1>
+        <ol>
+        <li> PEN
+        <li> BOOK
+        <li> FAN
+        </ol>
+            Please enter the product: <input type="text" name="details" /> <br />
+            
+            <input type="submit" value="Submit Details" />
+        </form>
+    </body>
+</html>
+
+-----------------------------------------------------------------------------------------------
+
+login.jsp
+----------
+
+<%@ page import = " java.util.* " %>
+<% 
+String username = request.getParameter("details"); 
+if(username.equals("pen")){
+    session.setAttribute("details",username); 
+    response.sendRedirect("home.jsp"); 
+}
+
+if(username.equals("book")){
+    session.setAttribute("details",username); 
+    response.sendRedirect("book.jsp"); 
+}
+if(username.equals("fan")){
+    session.setAttribute("details",username); 
+    response.sendRedirect("fan.jsp"); 
+}
+else{
+    out.print("Invalid Username");  
+}
+%>
+
+----------------------------------------------------------------------------------
+
+home.jsp
+----------
+
+<%
+String session_u_name = (String)session.getAttribute("pen");
+out.print(session_u_name + "Pen cost is 5Rs and improves your hand writing");
+%>
+
+-------------------------------------------------------------------------------------
+
+book.jsp
+----------
+<%
+String session_u_name = (String)session.getAttribute("book");
+out.print(session_u_name +"book cost is 50Rs and thick sheet");
+%>
+
+----------------------------------------------------------------------------------------
+
+fan.jsp
+------------
+<%
+String session_u_name = (String)session.getAttribute("fan");
+out.print(session_u_name + "Fan cost is 5500Rs and consumes less power");
+%>
+
+--------------------------------------------------------------------------------------------
+
